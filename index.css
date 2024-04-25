@@ -15,13 +15,109 @@ body {
   z-index:1;
 }
 
+#navbar {
+  height:64px;
+  display: flex;
+  color: var(--Button-Default, #84EEFE);
+  /* Glow/Text */
+  text-shadow: 0px 0px 8px var(--Blue_Glow-High, rgba(132, 238, 254, 0.72));
+  /* Button/Sm */
+  font-family: "Chakra Petch";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.84px;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: space-between;
+  width:100vw;
+  padding:0 12vw;
+  box-sizing: border-box;
+  transform:translate(-50%, 0);
+  left:50%;
+  position: fixed;
+  transition:background 0.2s;
+  z-index: 10;
+  
+}
+
+.navbar-filled {
+  border-bottom: 1px solid var(--Neutral-700, #272B2B);
+  background: #0B0F0F;
+  transition: background 0.2s;
+}
+
+.navbar-left {
+  display:flex;
+  align-items: center;
+  gap:16px;
+}
+
+#trailer-container {
+  width:100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin:0 auto;
+  padding:80px 0;
+}
+
+#trailer-container img {
+  width:100%;
+}
+
+/* #trailer-image, .glitch {
+  z-index: 2;
+} */
+
+#trailer-aberration {
+  position: absolute;
+  left:0;
+  top:80px;
+  z-index: 1;
+}
+
+
+
+#trailer-aberration {
+  animation: glitch-effect-trailer 3s infinite;
+}
+
+@keyframes glitch-effect-trailer {
+    0%, 90%, 100% {
+        transform: translate(0px, 0px);
+    }
+    30% {
+        transform: translate(0, -1px);
+    }
+    33% {
+        transform: translate(0, -3px);
+    }
+    36% {
+        transform: translate(-10px, 0);
+    }
+    39% {
+        transform: translate(4px, -2px);
+    }
+    42% {
+        transform: translate(0, 0);
+    }
+    45% {
+        transform: translate(0, -1px);
+    }
+}
+
+
+
 #bg-glow {
     background-color: rgba(116, 223, 230, 1);
     filter: blur(500px);
     height:60vh;
     width:60vw;
     opacity:0.2;
-    z-index: 0;
+    z-index: 100;
     position: absolute;
     pointer-events: none;
     top:-20%;
@@ -31,22 +127,215 @@ body {
     z-index:1;
 }
 
-#scanline {
-    width: 100%;
-    height: 100px;
-    z-index: 10;
-    background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(255, 255, 255, 0.2) 10%,
-        rgba(0, 0, 0, 0.1) 100%
-    );
-    opacity: 0.16;
-    position: absolute;
-    bottom: 100%;
-    animation: scanline 10s linear infinite;
+.two-containers {
+  display: flex;
+  gap:60px;
+  flex-direction: column;
+  padding:0 0 50vh 0;
 }
-  
+
+/*below code makes glitch effect for container only*/
+
+.glow-container {
+  padding: 36px;
+  width: 75vw;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  color: white;
+  font-family: 'Chakra Petch';
+  font-size: 34px;
+  font-weight: 600;
+  gap: 50px;
+  letter-spacing: 2px;
+  overflow: hidden;
+}
+
+.glow-container::before {
+  content: "";
+  border: 2px solid #84EEFE;
+  box-shadow: 0 0 8px rgba(132, 238, 254, 0.48), 0 0 8px rgba(132, 238, 254, 0.48) inset;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  animation: glitch-effect 5s infinite;
+  z-index: -1;
+}
+
+@keyframes glitch-effect {
+  0%, 2%, 4%, 5%, 8%, 100% {
+      transform: translate(0, 0) skew(0deg);
+      opacity: 1;
+  }
+  3% {
+      transform: translate(-30px, 0) skew(-50deg);
+      opacity: 0.4;
+  }
+  4.5% {
+      transform: translate(30px, 0) skew(2deg);
+      opacity: 0.8;
+  }
+}
+
+
+
+/*below code makes glitch effect for container+content*/
+
+.glow-container-2 {
+  border:2px solid #84EEFE;
+  border-radius: 8px;
+  padding:36px;
+  top:20vh;
+  width:75vw;
+  margin:0 auto;
+  position: relative;
+  display: flex;
+  color:white;
+  font-family: 'Chakra Petch';
+  font-size: 34px;
+  font-weight: 600;
+  gap:50px;
+  letter-spacing: 2px;
+  box-shadow: 0px 0px 8px 0px var(--Blue_Glow-Low, rgba(132, 238, 254, 0.48)), 0px 0px 8px 0px var(--Blue_Glow-Low, rgba(132, 238, 254, 0.48)) inset;
+
+  animation: glitch-effect 2s infinite;
+
+}
+
+@keyframes glitch-effect {
+  0%, 2%, 4%, 5%, 8%, 100% {
+      transform: translate(0, 0) skew(0deg);
+      opacity: 1;
+  }
+  3% {
+      transform: translate(-15px, 0) skew(-2deg);
+      opacity: 0.8;
+  }
+  4.5% {
+      transform: translate(15px, 0) skew(2deg);
+      opacity: 0.8;
+  }
+}
+
+
+.glow-container-header .button {
+  font-size:14px;
+  padding:10px 8px;
+  color: #84EEFE;
+  text-shadow: 0px 0px 8px var(--Blue_Glow-High, rgba(132, 238, 254, 0.72));
+}
+
+.glow-container-header {
+  display:flex;
+  gap:24px;
+  justify-content: space-between;
+  width:100%;
+}
+
+.credit-container {
+  display:flex;
+  gap:4px;
+  color: #D4F9FF;
+  text-shadow: 0px 0px 8px var(--Blue_Glow-High, rgba(132, 238, 254, 0.72)), 0px 0px 32px var(--Blue_Glow-Low, rgba(132, 238, 254, 0.48));
+}
+
+.credit-container span:nth-of-type(2) {
+  font-size:14px;
+}
+
+.username-div {
+  display:flex;
+  gap:24px;
+}
+
+.glow-container-right {
+  width:100%;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.glow-container-body {
+  width:100%;
+  height:150px;
+  border: 2px solid #3A3F40;
+  border-radius: 8px;
+}
+
+.username-div span:nth-of-type(1) {
+  color: #FFF;
+  /* Glow/Text */
+  text-shadow: 0px 0px 8px var(--Blue_Glow-High, rgba(132, 238, 254, 0.72));
+}
+
+.glow-container-header span:nth-of-type(2) {
+  display:flex;
+  gap:12px;
+}
+
+.glow-container img, .glow-container-2 img {
+  width:260px;
+}
+
+
+
+
+#scanline-filter {
+    height:100%;
+    width:100%;
+    z-index: 100;
+    pointer-events: none;
+    position: fixed;
+        background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.05) 40%,
+        rgba(0, 0, 0, 0.1) 40% /*change 0.08 to change scanline opacity*/
+    );
+    background-size: 100% 8px;
+    mix-blend-mode: overlay;
+    
+}
+
+#pixel-filter {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  opacity:0.04; /*adjust this to change the filter opacity*/
+  width: 100%;
+  height: 100vh; 
+  overflow: hidden; 
+  background: repeating-linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0.3) 0px, rgba(255, 0, 0, 0.3) 2px,
+    rgba(0, 255, 0, 0.3) 2px, rgba(0, 255, 0, 0.3) 4px,
+    rgba(0, 0, 255, 0.3) 4px, rgba(0, 0, 255, 0.3) 6px
+  );
+}
+
+
+
+
+
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 10;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(255, 255, 255, 0.2) 10%,
+      rgba(0, 0, 0, 0.1) 100%
+  );
+  opacity: 0.16;
+  position: absolute;
+  bottom: 100%;
+  animation: scanline 10s linear infinite;
+}
+
 @keyframes scanline {
   0% {
       bottom: 100%;
@@ -57,33 +346,4 @@ body {
   100% {
       bottom: 0%;
   }
-}
-
-#scanline-filter {
-    height:100%;
-    width:100%;
-    z-index: 100;
-    pointer-events: none;
-    position: absolute;
-        background: linear-gradient(
-        to bottom,
-        rgba(18, 16, 16, 0) 40%,
-        rgba(0, 0, 0, 0.08) 40% /*change 0.08 to change scanline opacity*/
-    );
-    background-size: 100% 8px;
-}
-
-#pixel-filter {
-  position: absolute;
-  z-index: 100;
-  opacity:0.12; /*adjust this to change the filter opacity*/
-  width: 100%;
-  height: 100vh; 
-  overflow: hidden; 
-  background: repeating-linear-gradient(
-    to right,
-    rgba(255, 0, 0, 0.3) 0px, rgba(255, 0, 0, 0.3) 2px,
-    rgba(0, 255, 0, 0.3) 2px, rgba(0, 255, 0, 0.3) 4px,
-    rgba(0, 0, 255, 0.3) 4px, rgba(0, 0, 255, 0.3) 6px
-  );
 }

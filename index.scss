@@ -1,60 +1,131 @@
-.line {
-    &:not(:first-child) {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-    
-    @for $i from 1 through 10 {
-      &:nth-child(#{$i}) {
-        animation:
-          clip 3000ms $i * -300ms linear infinite,
-          glitch#{$i} 1000ms random(1000) * -1ms linear infinite;
-  
-        @keyframes glitch#{$i} {
-          0% {
-            transform: translateX(0);
-          }
-          80% {
-            transform: translateX(0);
-            color: #74DFE6;
-          }
-          85% {
-            transform: translateX(random(6) - 3px);
-            color: #4E9A26;
-          }
-          90% {
-            transform: translateX(random(6) - 3px);
-            color: #06929B;
-          }
-          95% {
-            transform: translateX(random(6) - 3px);
-            color: #74DFE6;
-          }
-          100% {
-            transform: translateX(0);
-          }
-        }
+@function rand($min, $max) {
+  @return random() * ($max - $min) + $min;
+}
+
+$animation-duration: 3s;
+$glitch-duration: 20%;
+$glitch-frequency: 10;
+$glitch-interval: $glitch-duration / $glitch-frequency;
+
+@mixin rgb-shift($name) {
+  @keyframes rgb-shift-#{$name} {
+    @for $i from 0 to $glitch-frequency {
+      #{$i * $glitch-interval} {
+        transform: translate(
+          #{rand(-2, 2) * 1%},
+          #{rand(-0.5, 0.5) * 1%}
+        );
       }
     }
-  }
-  
-  @keyframes clip {
-    0% {
-      clip-path: polygon(
-        0 100%,
-        100% 100%,
-        100% 120%,
-        0 120%
-      );
-    }
-    
-    100% {
-      clip-path: polygon(
-        0 -20%,
-        100% -20%,
-        100% 0%,
-        0 0
-      );
+
+    #{$glitch-duration}, 100% {
+      transform: none;
     }
   }
+
+  animation: rgb-shift-#{$name} $animation-duration steps(1, jump-end) infinite alternate both;
+}
+
+@mixin glitch($name) {
+  @keyframes glitch-#{$name} {
+    @for $i from 0 to $glitch-frequency {
+      $left: 0%;
+      $right: 100%;
+      $top: rand(0, 90) * 1%;
+      $bottom: $top + rand(1, 10) * 1%;
+
+      #{$i * $glitch-interval} {
+        clip-path: polygon(
+          $left $top,
+          $right $top,
+          $right $bottom,
+          $left $bottom
+        );
+        transform: translate(
+          #{rand(-8, 8) * 1%},
+          #{rand(-0.5, 0.5) * 1%}
+        );
+      }
+    }
+
+    #{$glitch-duration}, 100% {
+      clip-path: none;
+      transform: none;
+    }
+  }
+
+  animation: glitch-#{$name} $animation-duration linear infinite alternate both;
+}
+
+body {
+  margin: 0;
+}
+
+.glitch {
+  background: #000 no-repeat center;
+  background-size: 0;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  &::before,
+  &::after,
+  .channel {
+    background: inherit;
+    background-size: cover;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &::before {
+    @include glitch(before);
+    content: "";
+  }
+
+  &::after {
+    @include glitch(after);
+    content: "";
+  }
+
+  .channel {
+    mix-blend-mode: screen;
+
+    &::before {
+      bottom: 0;
+      content: "";
+      display: block;
+      mix-blend-mode: multiply;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  .r {
+    @include rgb-shift(r);
+
+    &::before {
+      background: #f00;
+    }
+  }
+
+  .g {
+    @include rgb-shift(g);
+
+    &::before {
+      background: #0f0;
+    }
+  }
+
+  .b {
+    @include rgb-shift(b);
+
+    &::before {
+      background: #00f;
+    }
+  }
+}
