@@ -347,3 +347,34 @@ body {
       bottom: 0%;
   }
 }
+
+
+
+/*you are early text glitch*/
+
+#glitchy-text {
+  display:flex;
+  margin:84px 0 0 0;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  line-height: 0.7; /*play with this to bring reflections closer*/
+  gap:2px;
+}
+
+.glitch-youre-early {
+  position: relative;
+  font-size: 100px;
+  font-family: 'Chakra petch';
+  font-weight: 700;
+  filter:drop-shadow(0 0 2px rgba(180, 239, 245, 0.2))
+  drop-shadow(0 0 12px rgba(127, 212, 220, 0.6));
+  color: #B8F5FE;
+}
+
+.reflection {
+  transform: scaleY(-1);
+  opacity:0.3;
+  filter: saturate(0.7);
+  mask-image: linear-gradient(to top, transparent 0%, black 0%, black 0%, transparent 100%);
+}
